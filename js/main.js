@@ -29,9 +29,12 @@ const buttonGroupsUI = (index, questionObj) => {
     buttonWrapper.classList.add(`button-group-${index}`)
 
     //create buttons
-    questionObj.options.map((option) => {
+    questionObj.options.map((option, index) => {
         let btn = createButton()
         btn.innerHTML = option.text
+        if (index === 0) { // making the first option active by default
+            btn.className += " btn-active";
+        }
         btn.addEventListener('click', (event) => swapButton(event))
         buttonWrapper.appendChild(btn)
     })
@@ -66,6 +69,8 @@ const radioGroupUI = (index, questionObj) => {
         radioText.innerHTML = option.text
         questionWrapper.appendChild(radio)
         questionWrapper.appendChild(radioText)
+        // making the first radio option checked by default
+        questionWrapper.getElementsByTagName('input')[0].checked = true
     })
 
     surveyQuestions.appendChild(questionWrapper)
