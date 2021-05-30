@@ -1,0 +1,25 @@
+/* global css variables */
+:root {
+    --primary-color: #F2F8FF;
+}
+
+/* reset css to browser defaults - additional padding & margin */
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 32rem;
+    min-width: 30rem;
+    background-color: var(--primary-color);
+}
+
+/* hiding all the tabs by default */
+.tab {
+    display: none;
+}
