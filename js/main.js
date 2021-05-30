@@ -41,5 +41,22 @@ const switchTab = (tabPosition) => {
     showTab(currentTab)
 }
 
+// swap active/inactive states in button group
+const swapButton = (event) => {
+    const activeButtonGroup = document.getElementsByClassName(event.target.parentNode.className)[0]
+    const buttons = activeButtonGroup.getElementsByTagName('button')
+    // remove active states from all button
+    removeHighlights(buttons)
+    // make the current clicked button as active
+    event.currentTarget.className += " btn-active";
+}
+
+// method to reset active states of buttongroup
+const removeHighlights = (buttonGroup) => {
+    for (let item of buttonGroup) {
+        item.className = item.className.replace(" btn-active", "");
+    }
+}
+
 // display the current tab 
 showTab(currentTab)

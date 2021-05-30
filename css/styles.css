@@ -1,6 +1,7 @@
 /* global css variables */
 :root {
     --primary-color: #F2F8FF;
+    --active: 'lightgreen';
 }
 
 /* reset css to browser defaults - additional padding & margin */
@@ -22,4 +23,8 @@ body {
 /* hiding all the tabs by default */
 .tab {
     display: none;
+}
+
+.btn-active {
+    background-color: var(--active);
 }
