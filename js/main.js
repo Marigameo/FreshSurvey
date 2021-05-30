@@ -1,5 +1,6 @@
 // importing common util methods & constants
 import { PAYLOAD_URL, BUTTON_TYPE } from './constants.js'
+import { initLocalStoarge, isDataAvailable } from './utils/LocalStorageUtils.js';
 import { formTabsUI } from './utils/UIUtils.js'
 
 let currentTab = 0;
@@ -14,9 +15,8 @@ const fetchData = async () => {
     const payload = await fetch(PAYLOAD_URL)
     const response = await payload.json()
     formTabsUI(response)
+    !isDataAvailable() && initLocalStoarge(response)
 }
-
-fetchData()
 
 // method to reveal tab UI
 const showTab = (tabNumber) => {
@@ -36,6 +36,7 @@ const showTab = (tabNumber) => {
         backBtn.style.display = 'none'
     }
     else {
+        backBtn.style.display = 'inline'
         nextBtn.innerHTML = BUTTON_TYPE.next
     }
 }
@@ -54,6 +55,9 @@ const switchTab = (tabPosition) => {
     }
     showTab(currentTab)
 }
+
+// fetch questions payload
+fetchData()
 
 // display the current tab 
 showTab(currentTab)

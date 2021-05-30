@@ -1,11 +1,28 @@
 import { createButton, createRadioButton, createTextArea, createQuestionWrapper } from './ComponentUtils.js'
 import { QUESTION_TYPES } from '../constants.js'
 import { removeHighlights } from './CommonUtils.js'
+import { isDataAvailable, getQuestions, setQuestions } from './LocalStorageUtils.js'
 
 export const surveyQuestions = document.getElementById('survey-questions')
 
+export const getMatchedQuestion = (questionObj) => {
+    const questions = getQuestions()
+    return questions.filter((data) => data.question === questionObj.question)
+}
 // swap active/inactive states in button group
-export const swapButton = (event) => {
+export const swapButton = (event, questionObj) => {
+    const questions = getQuestions()
+    if (isDataAvailable()) {
+        const matchedQuestion = getMatchedQuestion(questionObj)
+        matchedQuestion[0].answer = event.currentTarget.innerText
+
+        const updatedQuestions = questions.map(p =>
+            p.question === matchedQuestion[0].question
+                ? { ...p, answer: event.currentTarget.innerText }
+                : p
+        );
+        setQuestions(updatedQuestions)
+    }
     const activeButtonGroup = document.getElementsByClassName(event.target.parentNode.className)[0]
     const buttons = activeButtonGroup.getElementsByTagName('button')
     // remove active states from all button
@@ -18,21 +35,29 @@ export const swapButton = (event) => {
 export const buttonGroupsUI = (index, questionObj) => {
 
     const questionWrapper = createQuestionWrapper(questionObj)
+    let matchedQuestion
 
     // create button wrapper
     const buttonWrapper = document.createElement('div')
     buttonWrapper.classList.add(`button-group-${index}`)
 
+    if (isDataAvailable()) {
+        matchedQuestion = getMatchedQuestion(questionObj)
+    }
     //create buttons
     questionObj.options.map((option, index) => {
         let btn = createButton()
         btn.innerHTML = option.text
-        if (index === 0) { // making the first option active by default
+        /* if data is present in localstorage make the matching btn active
+            else make the first btn active
+        */
+        if ((matchedQuestion && (questionObj.question === matchedQuestion[0].question) && (option.text === matchedQuestion[0].answer)) || (index === 0 && !isDataAvailable())) {
             btn.className += " btn-active";
         }
-        btn.addEventListener('click', (event) => swapButton(event))
+        btn.addEventListener('click', (event) => swapButton(event, questionObj))
         buttonWrapper.appendChild(btn)
     })
+
     questionWrapper.appendChild(buttonWrapper)
     surveyQuestions.appendChild(questionWrapper)
 }
