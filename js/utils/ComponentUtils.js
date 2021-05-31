@@ -38,3 +38,9 @@ export const createQuestionWrapper = (questionObj) => {
     return questionWrapper
 }
 
+export const createSnack = (message, type) => {
+    const snack = document.createElement('div')
+    snack.setAttribute('id', type)
+    snack.innerHTML = message
+    document.body.appendChild(snack)
+}

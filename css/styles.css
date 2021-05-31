@@ -214,3 +214,80 @@ textarea::placeholder {
 .submit-btn::after {
     content: none !important;
 }
+
+#error, #success {
+  visibility: hidden; 
+  min-width: 250px; 
+  margin-left: -125px; 
+  text-align: center; 
+  border-radius: 2px; 
+  padding: 16px;
+  position: fixed; 
+  z-index: 1; 
+  left: 50%; 
+  bottom: 30px; 
+}
+
+#error {
+    background-color: rgb(249, 204, 204);
+    color: red;
+}
+
+#success {
+    background-color: rgb(204, 245, 204);
+    color: rgb(47, 111, 47);
+}
+
+#error.show, #success.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+#hidden {
+    display: none;
+}
+
+/* slight animation for smooth show/hide of snack message */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+/* covering common mobile screen sizes - upto 480px */
+@media only screen and (max-width: 480px) {
+    .form {
+        padding: 0;
+    }
+    .title-wrapper {
+        margin: 2rem;
+    }
+}
+
+/* mini mobile screens - like iPhone5/SE */
+@media only screen and (min-width: 320px) and (max-width: 480px){
+    .btn-primary, .btn-secondary {
+        min-width: 100px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .container {
+        min-height: 60vh;
+    }
+}

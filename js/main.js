@@ -3,6 +3,8 @@ import { PAYLOAD_URL, BUTTON_TYPE } from './constants.js'
 import { initLocalStoarge, isDataAvailable, setQuestionsPayload, getQuestionsPayload, setPrevTab, getPrevTab, getQuestions } from './utils/LocalStorageUtils.js';
 import { formTabsUI } from './utils/UIUtils.js'
 import { getCookie, createSession } from './utils/CookieUtils.js'
+import { createSnack } from './utils/ComponentUtils.js'
+import { triggerSnack, showLoader, hideLoader } from './utils/CommonUtils.js'
 
 let currentTab
 if (getPrevTab() && getCookie()) {
@@ -18,8 +20,10 @@ const backBtn = document.getElementById('backBtn')
 
 // method to fetch question data from hosted json 
 const fetchData = async () => {
+    showLoader()
     const payload = await fetch(PAYLOAD_URL)
     const response = await payload.json()
+    hideLoader()
     setQuestionsPayload(response)
     formTabsUI(response, showTab, currentTab)
     !isDataAvailable() && initLocalStoarge(response)
@@ -39,6 +43,7 @@ const showTab = (tabNumber) => {
     if (tabNumber === 0) {
         nextBtn.innerHTML = BUTTON_TYPE.proceed
         backBtn.style.display = 'none'
+        nextBtn.classList.remove('submit-btn')
     } else if (tabNumber === (tab.length - 2)) { // if last tab - show submit button
         nextBtn.innerHTML = BUTTON_TYPE.submit
         nextBtn.classList.add('submit-btn')
@@ -62,6 +67,7 @@ const showTab = (tabNumber) => {
 }
 
 const submitForm = async () => {
+    showLoader()
     // submit form values
     const response = await fetch("https://60b4b4494ecdc10017481366.mockapi.io/api/v1/surveys", {
 
@@ -105,8 +111,16 @@ const switchTab = async (tabPosition) => {
             await initLocalStoarge(getQuestionsPayload())
             console.log('response', response)
             showTab(currentTab)
+            await createSnack('Submitted successfully', 'success')
+            await triggerSnack('success')
         })
-            .catch(err => console.log(err))
+            .catch(async (err) => {
+                console.log(err)
+                await createSnack(err, 'error')
+                await triggerSnack('error')
+                showTab(currentTab - 1)
+            })
+            .finally(() => hideLoader())
     } else {
         showTab(currentTab)
     }
