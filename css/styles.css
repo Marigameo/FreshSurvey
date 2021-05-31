@@ -248,6 +248,12 @@ textarea::placeholder {
     display: none;
 }
 
+.footer {
+    margin: 1rem;
+    padding: 2rem;
+    text-align: center;
+}
+
 /* slight animation for smooth show/hide of snack message */
 @-webkit-keyframes fadein {
   from {bottom: 0; opacity: 0;}

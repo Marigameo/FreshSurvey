@@ -10,7 +10,12 @@ You can find the working demo at [https://marigameo.github.io/FreshSurvey/](http
 3.  On the final question, if the user clicks on submit, they are shown a confirmation screen. 
 4.  The response is sent to an API via POST call. Mocked to this service [https://mockapi.io/](https://mockapi.io/)
 5.  On refreshes during a form fillup, user will be redirected to the last question he has seen with all previous answers persisted. 
-6.  Once a form is submitted successfully, the state is reset and if the page is refreshed, it goes back to the home page. 
+6.  Once a form is submitted successfully, the state is reset and if the page is refreshed, it goes back to the home page.
+
+## Extra addon feature:
+
+* A small analytics dashboards to display the stats of survey in charts 
+* Used chart JS 
 ## Steps to clone and run the application
 
 * git clone https://github.com/Marigameo/FreshSurvey.git
@@ -49,6 +54,9 @@ _Note: Few negative test case validations are commented. Feel free to uncomment 
 ![screen6](https://marigameo.github.io/FreshSurvey//app-screenshots/6.png)
 
 ![backend mock api data](https://marigameo.github.io/FreshSurvey/app-screenshots/backend.png)
+
+## Addon - Dashboard UI
+![backend mock api data](https://marigameo.github.io/FreshSurvey/app-screenshots/dashboard.png)
 ## Contact 
 ### Email - mariappangameo@gmail.com
 
