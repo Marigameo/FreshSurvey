@@ -7,32 +7,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FreshSurvey</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans" rel="stylesheet">
 </head>
 
 <body>
 
     <main>
+        <div class="title-wrapper">
+            <h1 class="title">FreshFruits</h1>
+        </div>
         <div class="container">
-            <h1>FreshFruits</h1>
+            <form action="#" class="form">
+                <div class="tabs">
+                    <div class="tab message-screen">
+                        <p class="welcome-text">Hi! 👋</p>
+                        <p class="welcome-message">Help us get some insights into the quality of our products</p>
+                    </div>
 
-            <form action="#">
-                <div class="tab">
-                    <p>Hi! 👋</p>
-                    <p>Help us get some insights into the quality of our products</p>
-                </div>
+                    <div id="survey-questions">
+                        <!-- survey question will be inserted here via dom looping the json object -->
+                    </div>
 
-                <div id="survey-questions">
-                    <!-- survey question will be inserted here via dom looping the json object -->
-                </div>
+                    <div class="tab message-screen thanks-message">
+                        <img src="/images/check.png" alt="check-logo">
+                        <p class="thanks-text">Thank you!</p>
+                        <p class="thanks-message">Thanks for helping us improve!</p>
+                    </div>
 
-                <div class="tab">
-                    <p>Thank you!</p>
-                    <p>Thanks for helping us improve!</p>
-                </div>
-
-                <div class="button-wrapper">
-                    <button type="button" id="backBtn">Back</button>
-                    <button type="button" id="nextBtn">Next</button>
+                    <div class="button-wrapper">
+                        <button type="button" class="btn btn-secondary" id="backBtn">Back</button>
+                        <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+                    </div>
                 </div>
             </form>
         </div>

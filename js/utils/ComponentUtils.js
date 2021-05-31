@@ -18,7 +18,7 @@ export const createRadioButton = () => {
 // textarea component
 export const createTextArea = () => {
     const textArea = document.createElement('textarea')
-    textArea.setAttribute('rows', 4)
+    textArea.setAttribute('rows', 6)
     textArea.setAttribute('cols', 50)
     return textArea
 }
@@ -32,6 +32,7 @@ export const createQuestionWrapper = (questionObj) => {
     // draft question
     const questionText = document.createElement('p')
     questionText.innerHTML = questionObj.question
+    questionText.classList.add('questionText')
     questionWrapper.appendChild(questionText)
 
     return questionWrapper

@@ -1,5 +1,5 @@
 import { createButton, createRadioButton, createTextArea, createQuestionWrapper } from './ComponentUtils.js'
-import { QUESTION_TYPES } from '../constants.js'
+import { QUESTION_TYPES, ADD_COMMENT } from '../constants.js'
 import { removeHighlights, getMatchedQuestion } from './CommonUtils.js'
 import { isDataAvailable, updateQuestions } from './LocalStorageUtils.js'
 
@@ -26,7 +26,8 @@ export const buttonGroupsUI = (index, questionObj) => {
     let matchedQuestion
 
     // create button wrapper
-    const buttonWrapper = document.createElement('div')
+    const buttonWrapper = document.createElement('span')
+    buttonWrapper.classList.add('group')
     buttonWrapper.classList.add(`button-group-${index}`)
 
     if (isDataAvailable()) {
@@ -62,16 +63,18 @@ export const radioGroupUI = (groupindex, questionObj) => {
     }
 
     questionObj.options.map((option, index) => {
+        const radioInputWrapper = document.createElement('div')
         const radio = createRadioButton()
         radio.setAttribute('value', option.value)
         radio.setAttribute('name', `$radio-group${groupindex}`)
-
+        radio.classList.add('radio-btn')
         radio.addEventListener('change', () => updateQuestions(questionObj, option.value))
 
         const radioText = document.createElement('span')
         radioText.innerHTML = option.text
-        questionWrapper.appendChild(radio)
-        questionWrapper.appendChild(radioText)
+        radioInputWrapper.appendChild(radio)
+        radioInputWrapper.appendChild(radioText)
+        questionWrapper.appendChild(radioInputWrapper)
 
         if ((matchedQuestion && (questionObj.question === matchedQuestion[0].question) && (option.value === matchedQuestion[0].answer))) {
             questionWrapper.getElementsByTagName('input')[index].checked = true
@@ -95,7 +98,7 @@ export const textAreaUI = (index, questionObj) => {
     // question wrapper
     const questionWrapper = createQuestionWrapper(questionObj)
     const textArea = createTextArea()
-
+    textArea.setAttribute('placeholder', ADD_COMMENT)
     // updating state in localstorage as user types
     textArea.addEventListener('change', (event) => setTimeout(updateQuestions(questionObj, event.target.value), 3000))
 

@@ -11,3 +11,5 @@ export const BUTTON_TYPE = {
     submit: 'Submit',
     next: 'Next',
 }
+
+export const ADD_COMMENT = 'Add your comments here'

@@ -41,6 +41,7 @@ const showTab = (tabNumber) => {
         backBtn.style.display = 'none'
     } else if (tabNumber === (tab.length - 2)) { // if last tab - show submit button
         nextBtn.innerHTML = BUTTON_TYPE.submit
+        nextBtn.classList.add('submit-btn')
     } else if (tabNumber === (tab.length - 1)) { // if last tab - hide all buttons
         nextBtn.style.display = 'none'
         backBtn.style.display = 'none'
@@ -48,6 +49,15 @@ const showTab = (tabNumber) => {
     else {
         backBtn.style.display = 'inline'
         nextBtn.innerHTML = BUTTON_TYPE.next
+    }
+
+    // changing screen styles for 1st & last screen only
+    const screen = document.getElementsByClassName('form')[0]
+    console.log(screen)
+    if (tabNumber == 0 || tabNumber == tab.length - 1) {
+        screen.classList.add('center-screen')
+    } else {
+        screen.classList.remove('center-screen')
     }
 }
 
@@ -116,4 +126,3 @@ if (!getCookie()) {
 
 backBtn.addEventListener('click', () => switchTab(- 1))
 nextBtn.addEventListener('click', () => switchTab(1))
-

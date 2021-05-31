@@ -1,23 +1,115 @@
 /* global css variables */
 :root {
-    --primary-color: #F2F8FF;
-    --active: 'lightgreen';
+    --background-color: #F2F8FF;
+    --normal-white: #FFFFFF;
+    --primary-color: #0F56B3;
+    --border-grey: #C0C0C0;
+    --primary-white: #C5DCFA;
+    --color-orange: #BF710F;
+    --color-black: #000000;
+    --text-grey: #414141;
+    --light-grey: #818181;
+    --primary-sandal: #FBE5C9;
+    --primary-font: 'IBM Plex Sans';
+    --bold: 700;
+    --semi-bold: 600;
 }
 
 /* reset css to browser defaults - additional padding & margin */
-body {
+body, p {
     padding: 0;
     margin: 0;
+    background-color: var(--background-color);
+    font-family: var(--primary-font), sans-serif;
 }
 
 .container {
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;
-    min-height: 32rem;
-    min-width: 30rem;
+}
+
+.title-wrapper {
+    /* margin: 4rem 8rem; */
+    margin: 4rem;
+}
+
+.welcome-text {
+    font-weight: var(--bold);
+    font-size: 60px;
+    letter-spacing: -0.01em;
+    line-height: 133%;
+}
+
+.thanks-message {
+    text-align: center;
+}
+
+.welcome-message {
+    font-weight: var(--bold);
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0.005em;
+}
+
+.btn {
+    cursor: pointer;
+    outline: none;
+    border: none;
+}
+
+.btn-primary, .btn-secondary {
+    border-radius: 8px;
+    min-width: 135px;
+    min-height: 48px;
+}
+.btn-primary {
     background-color: var(--primary-color);
+    color: var(--primary-white);
+    box-shadow: 0px 1px 2px rgba(15, 86, 179, 0.2), 0px 2px 4px rgba(15, 86, 179, 0.2);
+}
+
+.btn-secondary {
+    background: var(--normal-white);
+    border: 1px solid var(--border-grey);
+}
+
+.title {
+    font-size: 48px;
+    font-weight: bold;
+    letter-spacing: -0.005em;
+}
+
+.questionText {
+    font-weight: var(--semi-bold);
+    font-size: 34px;
+    line-height: 130%;
+    margin: 1em 0;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 2rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.radio-btn {
+    margin: 1rem;
+}
+
+textarea::placeholder {
+    font-size: 12px;
+    line-height: 15.6px;
+    letter-spacing: 0.03em;
+    font-family: var(--primary-font);
+    padding: 6px 4px;
+}
+
+.tabs {
+    padding: 2rem;
 }
 
 /* hiding all the tabs by default */
@@ -25,6 +117,100 @@ body {
     display: none;
 }
 
+.button-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin: 3rem 0;
+    width: 100%;
+}
+
+.group {
+    background: var(--primary-sandal);
+    box-shadow: inset 0px 1px 2px rgba(97, 97, 97, 0.2), inset 0px 2px 4px rgba(97, 97, 97, 0.2);
+    border-radius: 14px;
+    padding: 6px 2px;
+}
+
+.group button {
+    background: none;
+    box-shadow: none;
+    border-radius: 12px;
+    margin: 0px 4px;
+    color: var(--color-orange);
+    outline: none;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 4px 6px;
+    min-height: 24px;
+}
+
 .btn-active {
-    background-color: var(--active);
+    box-shadow: 0px 1px 2px rgba(191, 113, 15, 0.2), 0px 2px 4px rgba(191, 113, 15, 0.2);
+    background-color: var(--normal-white) !important;
+}
+
+.group .btn-active {
+    color: var(--color-black);
+}
+
+.center-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+}
+
+.center-screen .tabs {
+    justify-content: start;
+}
+
+.thanks-text {
+    color: var(--text-grey);
+    margin: 8px 0;
+    font-weight: var(--semi-bold);
+    font-size: 34px;
+}
+
+.thanks-message {
+    color: var(--light-grey);
+    font-size: 20px;
+    line-height: 138%;
+    letter-spacing: 0.0075em;
+    margin: 8px 0;
+}
+
+.btn-primary::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    margin-left: 10px;
+    opacity: 1;
+    transition: .3s ease;
+    width: 15px;
+    height: 15px;
+    margin-top: 0;
+    background: url(/images/arrow-right.png) 50%/contain no-repeat;
+}
+
+.btn-secondary::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    margin-left: -22px;
+    opacity: 1;
+    transition: .3s ease;
+    width: 15px;
+    height: 15px;
+    margin-top: 0;
+    background: url(/images/arrow-left.png) 50%/contain no-repeat;
+}
+
+.btn-primary:hover::after, .btn-secondary:hover::before {
+    transform: translateX(4px);
+}
+
+.submit-btn::after {
+    content: none !important;
 }
