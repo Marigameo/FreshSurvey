@@ -1,6 +1,6 @@
 // importing common util methods & constants
 import { PAYLOAD_URL, BUTTON_TYPE } from './constants.js'
-import { initLocalStoarge, isDataAvailable, setQuestionsPayload, getQuestionsPayload, setPrevTab, getPrevTab } from './utils/LocalStorageUtils.js';
+import { initLocalStoarge, isDataAvailable, setQuestionsPayload, getQuestionsPayload, setPrevTab, getPrevTab, getQuestions } from './utils/LocalStorageUtils.js';
 import { formTabsUI } from './utils/UIUtils.js'
 import { getCookie, createSession } from './utils/CookieUtils.js'
 
@@ -51,8 +51,31 @@ const showTab = (tabNumber) => {
     }
 }
 
+const submitForm = async () => {
+    // submit form values
+    const response = await fetch("https://60b4b4494ecdc10017481366.mockapi.io/api/v1/surveys", {
+
+        // Adding method type
+        method: "POST",
+
+        // Adding body or contents to send
+        body: JSON.stringify(getQuestions()),
+
+        // Adding headers to the request
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+    if (!response.ok) {
+        const message = `An error has occured: ${response.status}`;
+        throw new Error(message);
+    }
+    const questions = await response.json();
+    return questions
+}
+
 // method to switch between tabs
-const switchTab = (tabPosition) => {
+const switchTab = async (tabPosition) => {
     // hide the current tab 
     tab[currentTab].style.display = 'none'
 
@@ -63,11 +86,19 @@ const switchTab = (tabPosition) => {
     } else if (tabPosition === -1) {
         setPrevTab(currentTab + 1)
     }
+    console.log('submit', currentTab, tab.length)
+
     // submit state reach - submit form values and take to success screen
-    if (currentTab >= tab.length) {
-        // submit form values
+    if (currentTab >= tab.length - 1) {
+        console.log('submit', currentTab, tab.length)
+        submitForm().then(response => {
+            console.log('response', response)
+            showTab(currentTab)
+        })
+            .catch(err => console.log(err))
+    } else {
+        showTab(currentTab)
     }
-    showTab(currentTab)
 }
 
 if (!getCookie()) {
