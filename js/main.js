@@ -91,7 +91,8 @@ const switchTab = async (tabPosition) => {
     // submit state reach - submit form values and take to success screen
     if (currentTab >= tab.length - 1) {
         console.log('submit', currentTab, tab.length)
-        submitForm().then(response => {
+        submitForm().then(async (response) => {
+            await initLocalStoarge(getQuestionsPayload())
             console.log('response', response)
             showTab(currentTab)
         })
