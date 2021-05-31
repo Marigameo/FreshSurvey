@@ -16,6 +16,7 @@ You can find the working demo at [https://marigameo.github.io/FreshSurvey/](http
 
 * A small analytics dashboards to display the stats of survey in charts 
 * Used chart JS 
+* Error handling - implemented custom disappearing snackbar component for both success & error scenarios for better UX
 ## Steps to clone and run the application
 
 * git clone https://github.com/Marigameo/FreshSurvey.git

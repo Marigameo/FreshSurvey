@@ -4,6 +4,9 @@ import { SURVEYS_ENDPOINT_URL } from '../../js/constants.js'
 const initChart = async () => {
     getData().then(async (response) => {
 
+        // get total count
+        document.getElementById('total').innerHTML = response.length
+
         const delivery = getCountsForDelivery(response, '0')
         const freshness = getCountsForDelivery(response, '1')
         const order_again = getOrderStatus(response, '2')
