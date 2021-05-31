@@ -43,4 +43,5 @@ export const createSnack = (message, type) => {
     snack.setAttribute('id', type)
     snack.innerHTML = message
     document.body.appendChild(snack)
+    return true
 }
