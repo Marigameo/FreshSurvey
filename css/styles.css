@@ -191,7 +191,7 @@ textarea::placeholder {
     width: 15px;
     height: 15px;
     margin-top: 0;
-    background: url(/images/arrow-right.png) 50%/contain no-repeat;
+    background: url(../images/arrow-right.png) 50%/contain no-repeat;
 }
 
 .btn-secondary::before {
@@ -204,7 +204,7 @@ textarea::placeholder {
     width: 15px;
     height: 15px;
     margin-top: 0;
-    background: url(/images/arrow-left.png) 50%/contain no-repeat;
+    background: url(../images/arrow-left.png) 50%/contain no-repeat;
 }
 
 .btn-primary:hover::after, .btn-secondary:hover::before {
