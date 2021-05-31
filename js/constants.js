@@ -8,7 +8,7 @@ export const SUCCESS_MESSAGE = {
 }
 
 export const ERROR_MESSAGE = {
-    tyep: 'error',
+    type: 'error',
 }
 
 export const QUESTION_TYPES = {
