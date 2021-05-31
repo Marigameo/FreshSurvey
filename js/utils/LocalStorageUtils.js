@@ -47,3 +47,20 @@ export const updateQuestions = (questionObj, answer) => {
     );
     setQuestions(updatedQuestions)
 }
+
+export const setQuestionsPayload = (payload) => {
+    localStorage.setItem('payload', JSON.stringify(payload))
+}
+
+export const getQuestionsPayload = () => {
+    return JSON.parse(localStorage.getItem('payload'))
+}
+
+export const setActiveTab = (tabNumber) => {
+    console.log('tabN0', tabNumber)
+    localStorage.setItem('activeTab', tabNumber)
+}
+
+export const getActiveTab = () => {
+    return parseInt(localStorage.getItem('activeTab'))
+}

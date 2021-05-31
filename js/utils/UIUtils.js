@@ -107,7 +107,10 @@ export const textAreaUI = (index, questionObj) => {
 }
 
 // method to build tab UI
-export const formTabsUI = (response) => {
+export const formTabsUI = (response, callback, currentTab) => {
+
+    console.log('response', response)
+
     response.questions.forEach((question, index) => {
         switch (question.type) {
             case QUESTION_TYPES.rating:
@@ -124,4 +127,6 @@ export const formTabsUI = (response) => {
                 break
         }
     });
+    // display the current tab 
+    callback(currentTab)
 }

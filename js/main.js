@@ -1,9 +1,15 @@
 // importing common util methods & constants
 import { PAYLOAD_URL, BUTTON_TYPE } from './constants.js'
-import { initLocalStoarge, isDataAvailable } from './utils/LocalStorageUtils.js';
+import { initLocalStoarge, isDataAvailable, setQuestionsPayload, getQuestionsPayload, setActiveTab, getActiveTab } from './utils/LocalStorageUtils.js';
 import { formTabsUI } from './utils/UIUtils.js'
+import { getCookie, createSession } from './utils/CookieUtils.js'
 
-let currentTab = 0;
+let currentTab
+if (getActiveTab()) {
+    currentTab = getActiveTab()
+} else {
+    currentTab = 0
+}
 
 // fetching dom references for tabs, buttons
 const tab = document.getElementsByClassName('tab')
@@ -14,13 +20,14 @@ const backBtn = document.getElementById('backBtn')
 const fetchData = async () => {
     const payload = await fetch(PAYLOAD_URL)
     const response = await payload.json()
-    formTabsUI(response)
+    setQuestionsPayload(response)
+    formTabsUI(response, showTab, currentTab)
     !isDataAvailable() && initLocalStoarge(response)
 }
 
 // method to reveal tab UI
 const showTab = (tabNumber) => {
-
+    console.log('entering into', tabNumber)
     // make the tab matching the tabNumber visible
     tab[tabNumber].style.display = 'block'
 
@@ -48,7 +55,6 @@ const switchTab = (tabPosition) => {
 
     // increment/decrement tab position based on value passed
     currentTab += tabPosition
-
     // submit state reach - submit form values and take to success screen
     if (currentTab >= tab.length) {
         // submit form values
@@ -56,12 +62,17 @@ const switchTab = (tabPosition) => {
     showTab(currentTab)
 }
 
-// fetch questions payload
-fetchData()
+if (!getCookie()) {
+    createSession()
+    setActiveTab(currentTab)
+    // fetch questions payload
+    fetchData()
+} else {
+    console.log('entering into else case', getActiveTab())
+    formTabsUI(getQuestionsPayload(), showTab, getActiveTab())
+}
 
-// display the current tab 
-showTab(currentTab)
 
-
-backBtn.addEventListener('click', () => switchTab(-1))
+backBtn.addEventListener('click', () => switchTab(- 1))
 nextBtn.addEventListener('click', () => switchTab(1))
+
