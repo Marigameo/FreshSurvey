@@ -1,5 +1,5 @@
 // importing common util methods & constants
-import { PAYLOAD_URL, BUTTON_TYPE } from './constants.js'
+import { PAYLOAD_URL, BUTTON_TYPE, SURVEYS_ENDPOINT_URL, SUCCESS_MESSAGE, ERROR_MESSAGE } from './constants.js'
 import { initLocalStoarge, isDataAvailable, setQuestionsPayload, getQuestionsPayload, setPrevTab, getPrevTab, getQuestions } from './utils/LocalStorageUtils.js';
 import { formTabsUI } from './utils/UIUtils.js'
 import { getCookie, createSession } from './utils/CookieUtils.js'
@@ -69,7 +69,7 @@ const showTab = (tabNumber) => {
 const submitForm = async () => {
     showLoader()
     // submit form values
-    const response = await fetch("https://60b4b4494ecdc10017481366.mockapi.io/api/v1/surveys", {
+    const response = await fetch(SURVEYS_ENDPOINT_URL, {
 
         // Adding method type
         method: "POST",
@@ -111,13 +111,13 @@ const switchTab = async (tabPosition) => {
             await initLocalStoarge(getQuestionsPayload())
             console.log('response', response)
             showTab(currentTab)
-            await createSnack('Submitted successfully', 'success')
-            await triggerSnack('success')
+            await createSnack(SUCCESS_MESSAGE.text, SUCCESS_MESSAGE.type)
+            await triggerSnack(SUCCESS_MESSAGE.type)
         })
             .catch(async (err) => {
                 console.log(err)
-                await createSnack(err, 'error')
-                await triggerSnack('error')
+                await createSnack(err, ERROR_MESSAGE.type)
+                await triggerSnack(ERROR_MESSAGE.type)
                 showTab(currentTab - 1)
             })
             .finally(() => hideLoader())
