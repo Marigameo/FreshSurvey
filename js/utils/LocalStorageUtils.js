@@ -56,11 +56,11 @@ export const getQuestionsPayload = () => {
     return JSON.parse(localStorage.getItem('payload'))
 }
 
-export const setActiveTab = (tabNumber) => {
+export const setPrevTab = (tabNumber) => {
     console.log('tabN0', tabNumber)
-    localStorage.setItem('activeTab', tabNumber)
+    localStorage.setItem('prevTab', tabNumber)
 }
 
-export const getActiveTab = () => {
-    return parseInt(localStorage.getItem('activeTab'))
+export const getPrevTab = () => {
+    return parseInt(localStorage.getItem('prevTab'))
 }

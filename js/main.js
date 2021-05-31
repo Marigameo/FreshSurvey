@@ -1,12 +1,12 @@
 // importing common util methods & constants
 import { PAYLOAD_URL, BUTTON_TYPE } from './constants.js'
-import { initLocalStoarge, isDataAvailable, setQuestionsPayload, getQuestionsPayload, setActiveTab, getActiveTab } from './utils/LocalStorageUtils.js';
+import { initLocalStoarge, isDataAvailable, setQuestionsPayload, getQuestionsPayload, setPrevTab, getPrevTab } from './utils/LocalStorageUtils.js';
 import { formTabsUI } from './utils/UIUtils.js'
 import { getCookie, createSession } from './utils/CookieUtils.js'
 
 let currentTab
-if (getActiveTab()) {
-    currentTab = getActiveTab()
+if (getPrevTab() && getCookie()) {
+    currentTab = getPrevTab()
 } else {
     currentTab = 0
 }
@@ -30,7 +30,10 @@ const showTab = (tabNumber) => {
     console.log('entering into', tabNumber)
     // make the tab matching the tabNumber visible
     tab[tabNumber].style.display = 'block'
-
+    console.log(getPrevTab())
+    if (getPrevTab() == 4) {
+        setPrevTab(0)
+    }
     /* if it's first tab - show the proceed button 
        & hide next, back buttons */
     if (tabNumber === 0) {
@@ -55,6 +58,11 @@ const switchTab = (tabPosition) => {
 
     // increment/decrement tab position based on value passed
     currentTab += tabPosition
+    if (tabPosition === 1) {
+        setPrevTab(currentTab - 1)
+    } else if (tabPosition === -1) {
+        setPrevTab(currentTab + 1)
+    }
     // submit state reach - submit form values and take to success screen
     if (currentTab >= tab.length) {
         // submit form values
@@ -64,12 +72,13 @@ const switchTab = (tabPosition) => {
 
 if (!getCookie()) {
     createSession()
-    setActiveTab(currentTab)
+    currentTab = 0
+    setPrevTab(currentTab)
     // fetch questions payload
     fetchData()
 } else {
-    console.log('entering into else case', getActiveTab())
-    formTabsUI(getQuestionsPayload(), showTab, getActiveTab())
+    console.log('entering into else case', getPrevTab())
+    formTabsUI(getQuestionsPayload(), showTab, getPrevTab())
 }
 
 
