@@ -1,27 +1,15 @@
 import { createButton, createRadioButton, createTextArea, createQuestionWrapper } from './ComponentUtils.js'
 import { QUESTION_TYPES } from '../constants.js'
-import { removeHighlights } from './CommonUtils.js'
-import { isDataAvailable, getQuestions, setQuestions } from './LocalStorageUtils.js'
+import { removeHighlights, getMatchedQuestion } from './CommonUtils.js'
+import { isDataAvailable, updateQuestions } from './LocalStorageUtils.js'
 
 export const surveyQuestions = document.getElementById('survey-questions')
 
-export const getMatchedQuestion = (questionObj) => {
-    const questions = getQuestions()
-    return questions.filter((data) => data.question === questionObj.question)
-}
 // swap active/inactive states in button group
 export const swapButton = (event, questionObj) => {
-    const questions = getQuestions()
-    if (isDataAvailable()) {
-        const matchedQuestion = getMatchedQuestion(questionObj)
-        matchedQuestion[0].answer = event.currentTarget.innerText
 
-        const updatedQuestions = questions.map(p =>
-            p.question === matchedQuestion[0].question
-                ? { ...p, answer: event.currentTarget.innerText }
-                : p
-        );
-        setQuestions(updatedQuestions)
+    if (isDataAvailable()) {
+        updateQuestions(questionObj, event.currentTarget.innerText)
     }
     const activeButtonGroup = document.getElementsByClassName(event.target.parentNode.className)[0]
     const buttons = activeButtonGroup.getElementsByTagName('button')
@@ -64,20 +52,33 @@ export const buttonGroupsUI = (index, questionObj) => {
 
 
 // method to build radiogroup UI
-export const radioGroupUI = (index, questionObj) => {
+export const radioGroupUI = (groupindex, questionObj) => {
     // question wrapper
     const questionWrapper = createQuestionWrapper(questionObj)
+    let matchedQuestion
 
-    questionObj.options.map((option) => {
+    if (isDataAvailable()) {
+        matchedQuestion = getMatchedQuestion(questionObj)
+    }
+
+    questionObj.options.map((option, index) => {
         const radio = createRadioButton()
         radio.setAttribute('value', option.value)
-        radio.setAttribute('name', `$radio-group${index}`)
+        radio.setAttribute('name', `$radio-group${groupindex}`)
+
+        radio.addEventListener('change', () => updateQuestions(questionObj, option.value))
+
         const radioText = document.createElement('span')
         radioText.innerHTML = option.text
         questionWrapper.appendChild(radio)
         questionWrapper.appendChild(radioText)
-        // making the first radio option checked by default
-        questionWrapper.getElementsByTagName('input')[0].checked = true
+
+        if ((matchedQuestion && (questionObj.question === matchedQuestion[0].question) && (option.value === matchedQuestion[0].answer))) {
+            questionWrapper.getElementsByTagName('input')[index].checked = true
+        } else {
+            // making the first radio option checked by default
+            questionWrapper.getElementsByTagName('input')[0].checked = true
+        }
     })
 
     surveyQuestions.appendChild(questionWrapper)
@@ -86,9 +87,21 @@ export const radioGroupUI = (index, questionObj) => {
 
 // method to build the textarea UI
 export const textAreaUI = (index, questionObj) => {
+    let matchedQuestion
+
+    if (isDataAvailable()) {
+        matchedQuestion = getMatchedQuestion(questionObj)
+    }
     // question wrapper
     const questionWrapper = createQuestionWrapper(questionObj)
     const textArea = createTextArea()
+
+    // updating state in localstorage as user types
+    textArea.addEventListener('change', (event) => setTimeout(updateQuestions(questionObj, event.target.value), 3000))
+
+    if (matchedQuestion && (questionObj.question === matchedQuestion[0].question)) {
+        textArea.value = matchedQuestion[0].answer
+    }
     questionWrapper.appendChild(textArea)
     surveyQuestions.appendChild(questionWrapper)
 }
