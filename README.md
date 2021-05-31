@@ -36,13 +36,19 @@ You can find the working demo at [https://marigameo.github.io/FreshSurvey/](http
 
 _Note: Few negative test case validations are commented. Feel free to uncomment & test for wrong inputs_
 ## App Screenshosts
-![screen1][https://marigameo.github.io/FreshSurvey//app-screenshots/1.png]
-![screen2][https://marigameo.github.io/FreshSurvey//app-screenshots/2.png]
-![screen3][https://marigameo.github.io/FreshSurvey//app-screenshots/3.png]
-![screen4][https://marigameo.github.io/FreshSurvey//app-screenshots/4.png]
-![screen5][https://marigameo.github.io/FreshSurvey//app-screenshots/5.png]
-![screen6][https://marigameo.github.io/FreshSurvey//app-screenshots/6.png]
-![backend mock api data][https://marigameo.github.io/FreshSurvey//app-screenshots/backend.png]
+![screen1](https://marigameo.github.io/FreshSurvey//app-screenshots/1.png)
+
+![screen2](https://marigameo.github.io/FreshSurvey//app-screenshots/2.png)
+
+![screen3](https://marigameo.github.io/FreshSurvey//app-screenshots/3.png)
+
+![screen4](https://marigameo.github.io/FreshSurvey//app-screenshots/4.png)
+
+![screen5](https://marigameo.github.io/FreshSurvey//app-screenshots/5.png)
+
+![screen6](https://marigameo.github.io/FreshSurvey//app-screenshots/6.png)
+
+![backend mock api data](https://marigameo.github.io/FreshSurvey/app-screenshots/backend.png)
 ## Contact 
 ### Email - mariappangameo@gmail.com
 
