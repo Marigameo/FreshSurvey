@@ -288,7 +288,7 @@ textarea::placeholder {
 /* mini mobile screens - like iPhone5/SE */
 @media only screen and (min-width: 320px) and (max-width: 480px){
     .btn-primary, .btn-secondary {
-        min-width: 100px;
+        min-width: 140px;
     }
 }
 
